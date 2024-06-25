@@ -1,5 +1,8 @@
 package com.nftchange.domain;
 
+import com.nftchange.exception.BadRequestException;
+import com.nftchange.util.EmailUtil;
+
 public class User extends AbstractAuditing {
     private Long id;
     private String name;
@@ -16,7 +19,7 @@ public class User extends AbstractAuditing {
     public User(Long id, String name, String email, Wallet wallet, String login, String password, String pinCode, boolean active) {
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.email = isEmail(email);
         this.wallet = wallet;
         this.login = login;
         this.password = password;
@@ -27,7 +30,7 @@ public class User extends AbstractAuditing {
     public void from(User user) {
         this.id = user.getId();
         this.name = user.getName();
-        this.email = user.getEmail();
+        this.email = isEmail(user.getEmail());
         this.wallet = user.getWallet();
         this.login = user.getLogin();
         this.password = user.getPassword();
@@ -50,6 +53,9 @@ public class User extends AbstractAuditing {
     }
 
     public void setName(String name) {
+        if (name == null) {
+            throw new BadRequestException("O campo nome é obrigatorio.");
+        }
         this.name = name;
     }
 
@@ -58,7 +64,7 @@ public class User extends AbstractAuditing {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = isEmail(email);
     }
 
     public Wallet getWallet() {
@@ -74,6 +80,9 @@ public class User extends AbstractAuditing {
     }
 
     public void setLogin(String login) {
+        if (login == null) {
+            throw new BadRequestException("O campo login é obrigatorio.");
+        }
         this.login = login;
     }
 
@@ -82,6 +91,9 @@ public class User extends AbstractAuditing {
     }
 
     public void setPassword(String password) {
+        if (password == null) {
+            throw new BadRequestException("O campo senha é obrigatorio.");
+        }
         this.password = password;
     }
 
@@ -99,5 +111,12 @@ public class User extends AbstractAuditing {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    private String isEmail(String email) {
+        if (email == null || !EmailUtil.isItEmail(email)) {
+            throw new BadRequestException("Email invalido");
+        }
+        return email;
     }
 }

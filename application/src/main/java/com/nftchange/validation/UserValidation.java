@@ -61,4 +61,11 @@ public class UserValidation {
         }
     }
 
+    public void checkExistByLogin(User user) {
+        Long count = this.userGateway.countByLogin(user.getLogin());
+        if (count > 0) {
+            throw new BadRequestException("O login " + user.getLogin() + " ja é usado.");
+        }
+    }
+
 }

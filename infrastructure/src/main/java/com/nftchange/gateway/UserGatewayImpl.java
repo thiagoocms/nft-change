@@ -49,4 +49,9 @@ public class UserGatewayImpl implements UserGateway {
         UserEntity userEntity = this.userRepository.findFirstByEmailAndDeletedIsFalse(email);
         return UserEntityMapper.toDomain(userEntity);
     }
+
+    @Override
+    public Long countByLogin(String login) {
+        return this.userRepository.countByLoginAndDeletedIsFalse(login);
+    }
 }

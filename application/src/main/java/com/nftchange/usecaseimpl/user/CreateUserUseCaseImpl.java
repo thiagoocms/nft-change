@@ -7,7 +7,6 @@ import com.nftchange.gateway.UserGateway;
 import com.nftchange.user.CreateUserUseCase;
 import com.nftchange.validation.UserValidation;
 import com.nftchange.wallet.CreateWalletUseCase;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Random;
@@ -26,11 +25,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         this.emailSendGateway = emailSendGateway;
     }
 
-    @Transactional
     @Override
     public User create(User user) throws Throwable {
         this.userValidation.checkOwnerFieldsToCreate(user);
         this.userValidation.checkExistByEmail(user);
+        this.userValidation.checkExistByLogin(user);
         user.setWallet(new Wallet(null, BigDecimal.ZERO));
         this.generatePinCode(user);
         return this.userGateway.create(user);

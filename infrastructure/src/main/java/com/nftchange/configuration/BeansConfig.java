@@ -1,5 +1,6 @@
 package com.nftchange.configuration;
 
+import com.nftchange.gateway.EmailSendGateway;
 import com.nftchange.gateway.UserGateway;
 import com.nftchange.gateway.WalletGateway;
 import com.nftchange.usecaseimpl.user.CreateUserUseCaseImpl;
@@ -20,8 +21,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeansConfig {
 
     @Bean
-    public CreateUserUseCase createUserUseCase(UserGateway userGateway, CreateWalletUseCase createWalletUseCase, UserValidation userValidation) {
-        return new CreateUserUseCaseImpl(userGateway, createWalletUseCase, userValidation);
+    public CreateUserUseCase createUserUseCase(UserGateway userGateway, CreateWalletUseCase createWalletUseCase, UserValidation userValidation, EmailSendGateway emailSendGateway) {
+        return new CreateUserUseCaseImpl(userGateway, createWalletUseCase, userValidation, emailSendGateway);
     }
 
     @Bean

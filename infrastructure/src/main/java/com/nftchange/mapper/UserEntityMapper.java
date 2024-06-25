@@ -17,7 +17,7 @@ public class UserEntityMapper {
         user.setPassword(userEntity.getPassword());
         user.setPinCode(userEntity.getPinCode());
         user.setActive(userEntity.isActive());
-//        user.setWallet(WalletEntityMapper.toDomain(userEntity.getWallet()));
+        user.setWallet(WalletEntityMapper.toDomain(userEntity.getWallet()));
         user.setCreatedDate(userEntity.getCreatedDate());
         user.setCreatedBy(userEntity.getCreatedBy());
         user.setLastModifiedDate(userEntity.getLastModifiedDate());
@@ -37,7 +37,7 @@ public class UserEntityMapper {
         userEntity.setPassword(user.getPassword());
         userEntity.setPinCode(user.getPinCode());
         userEntity.setActive(user.isActive());
-//        userEntity.setWallet(WalletEntityMapper.toEntity(user.getWallet()));
+        userEntity.setWallet(WalletEntityMapper.toEntity(user.getWallet()));
         userEntity.setCreatedDate(user.getCreatedDate());
         userEntity.setCreatedBy(user.getCreatedBy());
         userEntity.setLastModifiedDate(user.getLastModifiedDate());

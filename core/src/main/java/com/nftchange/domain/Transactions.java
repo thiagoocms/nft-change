@@ -7,5 +7,6 @@ public class Transactions {
     private User seller;
     private User buyer;
     private NFT nft;
-    private BigDecimal value;
+    private BigDecimal price;
+    private String status;
 }

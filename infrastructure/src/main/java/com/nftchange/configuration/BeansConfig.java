@@ -48,4 +48,9 @@ public class BeansConfig {
     public IsActiveUserUseCase isActiveUserUseCase(UserGateway userGateway) {
         return new IsActiveUserUseCaseImpl(userGateway);
     }
+
+    @Bean
+    public ActiveUserUseCase activeUserUseCase(UserGateway userGateway) {
+        return new ActiveUserUseCaseImpl(userGateway);
+    }
 }

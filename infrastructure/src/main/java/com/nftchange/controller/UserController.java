@@ -3,6 +3,7 @@ package com.nftchange.controller;
 
 import com.nftchange.constants.AppConstants;
 import com.nftchange.domain.User;
+import com.nftchange.dto.UserActiveDTO;
 import com.nftchange.dto.UserDTO;
 import com.nftchange.mapper.UserDTOMapper;
 import com.nftchange.user.*;
@@ -22,14 +23,16 @@ public class UserController {
     private final FindUserByIdUseCase findUserByIdUseCase;
     private final DeleteUserByIdUseCase deleteUserByIdUseCase;
     private final IsActiveUserUseCase isActiveUserUseCase;
+    private final ActiveUserUseCase activeUserUseCase;
 
     @Autowired
-    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase, IsActiveUserUseCase isActiveUserUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase, IsActiveUserUseCase isActiveUserUseCase, ActiveUserUseCase activeUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserByIdUseCase = updateUserByIdUseCase;
         this.findUserByIdUseCase = findUserByIdUseCase;
         this.deleteUserByIdUseCase = deleteUserByIdUseCase;
         this.isActiveUserUseCase = isActiveUserUseCase;
+        this.activeUserUseCase = activeUserUseCase;
     }
 
     @PostMapping
@@ -76,6 +79,15 @@ public class UserController {
     public ResponseEntity<Void> isActive(@RequestParam(name = "login", required = true) String login) throws Throwable {
 
         isActiveUserUseCase.isActive(login);
+
+        return ResponseEntity
+                .ok().build();
+    }
+
+    @PostMapping("/active")
+    public ResponseEntity<Void> activeAccount(@RequestBody UserActiveDTO dto) {
+
+        activeUserUseCase.active(dto.getLogin(), dto.getPinCode());
 
         return ResponseEntity
                 .ok().build();

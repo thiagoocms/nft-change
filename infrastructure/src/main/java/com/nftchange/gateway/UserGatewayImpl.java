@@ -31,7 +31,7 @@ public class UserGatewayImpl implements UserGateway {
     }
 
     @Override
-    public User update(User user) throws Throwable {
+    public User update(User user){
         UserEntity userEntity = UserEntityMapper.toEntity(user);
         user = UserEntityMapper.toDomain(this.userRepository.save(userEntity));
         return user;

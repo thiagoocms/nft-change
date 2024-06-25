@@ -3,15 +3,9 @@ package com.nftchange.configuration;
 import com.nftchange.gateway.EmailSendGateway;
 import com.nftchange.gateway.UserGateway;
 import com.nftchange.gateway.WalletGateway;
-import com.nftchange.usecaseimpl.user.CreateUserUseCaseImpl;
-import com.nftchange.usecaseimpl.user.DeleteUserByIdUseCaseImpl;
-import com.nftchange.usecaseimpl.user.FindUserByIdUseCaseImpl;
-import com.nftchange.usecaseimpl.user.UpdateUserByIdUseCaseImpl;
+import com.nftchange.usecaseimpl.user.*;
 import com.nftchange.usecaseimpl.wallet.CreateWalletUseCaseImpl;
-import com.nftchange.user.CreateUserUseCase;
-import com.nftchange.user.DeleteUserByIdUseCase;
-import com.nftchange.user.FindUserByIdUseCase;
-import com.nftchange.user.UpdateUserByIdUseCase;
+import com.nftchange.user.*;
 import com.nftchange.validation.UserValidation;
 import com.nftchange.wallet.CreateWalletUseCase;
 import org.springframework.context.annotation.Bean;
@@ -48,5 +42,10 @@ public class BeansConfig {
     @Bean
     public DeleteUserByIdUseCase deleteUserByIdUseCase(UserGateway userGateway, UserValidation userValidation) {
         return new DeleteUserByIdUseCaseImpl(userGateway, userValidation);
+    }
+
+    @Bean
+    public IsActiveUserUseCase isActiveUserUseCase(UserGateway userGateway) {
+        return new IsActiveUserUseCaseImpl(userGateway);
     }
 }

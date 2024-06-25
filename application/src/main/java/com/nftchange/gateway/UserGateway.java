@@ -9,5 +9,6 @@ public interface UserGateway {
     void deleteById(Long id);
     User findByEmail(String email);
     Long countByLogin(String login);
+    User findByLogin(String login);
 
 }

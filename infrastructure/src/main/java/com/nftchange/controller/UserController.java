@@ -5,10 +5,7 @@ import com.nftchange.constants.AppConstants;
 import com.nftchange.domain.User;
 import com.nftchange.dto.UserDTO;
 import com.nftchange.mapper.UserDTOMapper;
-import com.nftchange.user.CreateUserUseCase;
-import com.nftchange.user.DeleteUserByIdUseCase;
-import com.nftchange.user.FindUserByIdUseCase;
-import com.nftchange.user.UpdateUserByIdUseCase;
+import com.nftchange.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +21,15 @@ public class UserController {
     private final UpdateUserByIdUseCase updateUserByIdUseCase;
     private final FindUserByIdUseCase findUserByIdUseCase;
     private final DeleteUserByIdUseCase deleteUserByIdUseCase;
+    private final IsActiveUserUseCase isActiveUserUseCase;
 
     @Autowired
-    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase, IsActiveUserUseCase isActiveUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserByIdUseCase = updateUserByIdUseCase;
         this.findUserByIdUseCase = findUserByIdUseCase;
         this.deleteUserByIdUseCase = deleteUserByIdUseCase;
+        this.isActiveUserUseCase = isActiveUserUseCase;
     }
 
     @PostMapping
@@ -71,5 +70,14 @@ public class UserController {
         deleteUserByIdUseCase.deleteById(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/is-active")
+    public ResponseEntity<Void> isActive(@RequestParam(name = "login", required = true) String login) throws Throwable {
+
+        isActiveUserUseCase.isActive(login);
+
+        return ResponseEntity
+                .ok().build();
     }
 }

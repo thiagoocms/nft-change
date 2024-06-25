@@ -28,7 +28,6 @@ public class User extends AbstractAuditing {
     }
 
     public void from(User user) {
-        this.id = user.getId() != null ? user.getId() : this.id;
         this.name = user.getName() != null ? user.getName() : this.name;
         this.email = user.getEmail() != null ? isEmail(user.getEmail()) : this.email;
         this.login = user.getLogin() != null ? user.getLogin() : this.login;

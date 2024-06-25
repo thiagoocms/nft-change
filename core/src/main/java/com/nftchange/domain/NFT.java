@@ -21,6 +21,13 @@ public class NFT extends AbstractAuditing {
         this.price = price;
     }
 
+    public void from(NFT nft) {
+        this.title = nft.getTitle() != null ? nft.getTitle() : this.title;
+        this.describe = nft.getDescribe() != null ? nft.getDescribe() : this.describe;
+        this.imageUrl = nft.getImageUrl() != null ? nft.getImageUrl() : this.imageUrl;
+        this.price = nft.getPrice() != null ? nft.getPrice() : this.price;
+    }
+
     public UUID getTokenId() {
         return tokenId;
     }

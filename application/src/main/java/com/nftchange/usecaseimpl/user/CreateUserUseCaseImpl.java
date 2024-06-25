@@ -30,13 +30,13 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     @Override
     public User create(User user) throws Throwable {
         this.userValidation.checkOwnerFieldsToCreate(user);
+        this.userValidation.checkExistByEmail(user);
         user.setWallet(new Wallet(null, BigDecimal.ZERO));
         this.generatePinCode(user);
         return this.userGateway.create(user);
     }
 
     private void generatePinCode(User user) {
-
         Random random = new Random();
         int pin = 1000 + random.nextInt(9000);
         user.setPinCode(String.valueOf(pin));

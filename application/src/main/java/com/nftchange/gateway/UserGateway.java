@@ -7,5 +7,6 @@ public interface UserGateway {
     User findById(Long id);
     User update(User user) throws Throwable;
     void deleteById(Long id);
+    User findByEmail(String email);
 
 }

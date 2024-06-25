@@ -5,6 +5,7 @@ import com.nftchange.domain.User;
 import com.nftchange.exception.BadRequestException;
 import com.nftchange.exception.ResourceNotFoundException;
 import com.nftchange.gateway.UserGateway;
+import com.nftchange.util.EmailUtil;
 
 import java.util.Objects;
 
@@ -48,6 +49,16 @@ public class UserValidation {
         }
 
         return user;
+    }
+
+    public void checkExistByEmail(User user) {
+        User persistUser = userGateway.findByEmail(user.getEmail());
+        if (persistUser != null) {
+            if (!persistUser.isActive()) {
+                throw new BadRequestException("A conta com o e-mail " + EmailUtil.maskEmail(user.getEmail()) + " ja foi criada, você precisa ativa-la");
+            }
+            throw new BadRequestException("A conta com o e-mail " + EmailUtil.maskEmail(user.getEmail()) + " ja Existe");
+        }
     }
 
 }

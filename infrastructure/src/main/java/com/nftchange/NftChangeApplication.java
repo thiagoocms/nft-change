@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.net.InetAddress;
@@ -20,7 +19,6 @@ public class NftChangeApplication {
 
 	public static void main(String[] args) throws UnknownHostException {
 		SpringApplication app = new SpringApplication(NftChangeApplication.class);
-		SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
 		Environment env = app.run(args).getEnvironment();
 		log.info("Access URLs:\n----------------------------------------------------------\n\t"
 						+ "Local: \t\thttp://127.0.0.1:{}{}\n\t"

@@ -43,4 +43,10 @@ public class UserGatewayImpl implements UserGateway {
         userEntity.setDeleted(Boolean.TRUE);
         this.userRepository.save(userEntity);
     }
+
+    @Override
+    public User findByEmail(String email) {
+        UserEntity userEntity = this.userRepository.findFirstByEmailAndDeletedIsFalse(email);
+        return UserEntityMapper.toDomain(userEntity);
+    }
 }

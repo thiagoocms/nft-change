@@ -32,10 +32,6 @@ public class UserValidation {
         }
         User persistedEntity = checkExistUser(id);
 
-        // Valores que não podem ser Alterados
-        toUpdateEntity.setCreatedBy(persistedEntity.getCreatedBy());
-        toUpdateEntity.setCreatedDate(persistedEntity.getCreatedDate());
-
         persistedEntity.from(toUpdateEntity);
 
         return persistedEntity;

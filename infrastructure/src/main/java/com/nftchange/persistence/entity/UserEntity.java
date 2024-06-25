@@ -26,7 +26,7 @@ public class UserEntity extends AbstractAuditingEntity {
     @Column(name = "password", length = 25, nullable = false)
     private String password;
 
-    @Column(name = "pin_code", length = 4, nullable = false)
+    @Column(name = "pin_code", length = 4)
     private String pinCode;
 
     @Column(name = "active", nullable = false)

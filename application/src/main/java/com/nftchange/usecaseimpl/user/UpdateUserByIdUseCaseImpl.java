@@ -17,7 +17,7 @@ public class UpdateUserByIdUseCaseImpl implements UpdateUserByIdUseCase {
 
     @Override
     public User updateById(Long id, User user) throws Throwable {
-        this.userValidation.checkUpdateConsistence(id, user);
+       user = this.userValidation.checkUpdateConsistence(id, user);
         return this.userGateway.update(user);
     }
 }

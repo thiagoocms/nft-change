@@ -28,16 +28,11 @@ public class User extends AbstractAuditing {
     }
 
     public void from(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.email = isEmail(user.getEmail());
-        this.wallet = user.getWallet();
-        this.login = user.getLogin();
-        this.password = user.getPassword();
-        this.pinCode = user.getPinCode();
-        this.active = user.isActive();
-        this.setCreatedBy(user.getCreatedBy());
-        this.setCreatedDate(user.getCreatedDate());
+        this.id = user.getId() != null ? user.getId() : this.id;
+        this.name = user.getName() != null ? user.getName() : this.name;
+        this.email = user.getEmail() != null ? isEmail(user.getEmail()) : this.email;
+        this.login = user.getLogin() != null ? user.getLogin() : this.login;
+        this.password = user.getPassword() != null ? user.getPassword() : this.password;
     }
 
     public Long getId() {

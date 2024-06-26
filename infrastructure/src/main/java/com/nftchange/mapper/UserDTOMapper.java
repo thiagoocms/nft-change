@@ -14,9 +14,6 @@ public class UserDTOMapper {
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         user.setLogin(userDTO.getLogin());
-        user.setPassword(userDTO.getPassword());
-        user.setPinCode(userDTO.getPinCode());
-        user.setActive(userDTO.isActive());
         user.setWallet(WalletDTOMapper.toDomain(userDTO.getWallet()));
         return user;
     }
@@ -30,9 +27,6 @@ public class UserDTOMapper {
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
         userDTO.setLogin(user.getLogin());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setPinCode(user.getPinCode());
-        userDTO.setActive(user.isActive());
         userDTO.setWallet(WalletDTOMapper.toDto(user.getWallet()));
         return userDTO;
     }

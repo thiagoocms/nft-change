@@ -1,29 +1,21 @@
 package com.nftchange.dto;
 
-import com.nftchange.domain.Wallet;
-
 public class UserDTO {
     private Long id;
     private String name;
     private String email;
     private WalletDTO wallet;
     private String login;
-    private String password;
-    private String pinCode;
-    private boolean active;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String email, WalletDTO wallet, String login, String password, String pinCode, boolean active) {
+    public UserDTO(Long id, String name, String email, WalletDTO wallet, String login) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.wallet = wallet;
         this.login = login;
-        this.password = password;
-        this.pinCode = pinCode;
-        this.active = active;
     }
 
     public Long getId() {
@@ -64,29 +56,5 @@ public class UserDTO {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPinCode() {
-        return pinCode;
-    }
-
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

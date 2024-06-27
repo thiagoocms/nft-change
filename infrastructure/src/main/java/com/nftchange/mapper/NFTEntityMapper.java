@@ -14,6 +14,7 @@ public class NFTEntityMapper {
         }
         NFT nft = new NFT();
         nft.setTokenId(UUID.fromString(nftEntity.getTokenId()));
+        nft.setTitle(nftEntity.getTitle());
         nft.setDescribe(nftEntity.getDescribe());
         nft.setImageUrl(nftEntity.getImageUrl());
         nft.setPrice(nftEntity.getPrice());
@@ -31,9 +32,10 @@ public class NFTEntityMapper {
         }
         NFTEntity nftEntity = new NFTEntity();
         nftEntity.setTokenId(nft.getTokenId() != null ? nft.getTokenId().toString() : null);
-        nftEntity.setDescribe(nftEntity.getDescribe());
-        nftEntity.setImageUrl(nftEntity.getImageUrl());
-        nftEntity.setPrice(nftEntity.getPrice());
+        nftEntity.setTitle(nft.getTitle());
+        nftEntity.setDescribe(nft.getDescribe());
+        nftEntity.setImageUrl(nft.getImageUrl());
+        nftEntity.setPrice(nft.getPrice());
         nftEntity.setCreatedBy(nft.getCreatedBy());
         nftEntity.setCreatedDate(nft.getCreatedDate());
         nftEntity.setLastModifiedBy(nft.getLastModifiedBy());

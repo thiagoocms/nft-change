@@ -14,6 +14,7 @@ public class NFTDTOMapper {
         }
         NFT nft = new NFT();
         nft.setTokenId(nftdto.getTokenId());
+        nft.setTitle(nftdto.getTitle());
         nft.setDescribe(nftdto.getDescribe());
         nft.setImageUrl(nftdto.getImageUrl());
         nft.setPrice(nftdto.getPrice());
@@ -26,6 +27,7 @@ public class NFTDTOMapper {
         }
         NFTDTO nftdto = new NFTDTO();
         nftdto.setTokenId(nft.getTokenId());
+        nftdto.setTitle(nft.getTitle());
         nftdto.setDescribe(nft.getDescribe());
         nftdto.setImageUrl(nft.getImageUrl());
         nftdto.setPrice(nft.getPrice());

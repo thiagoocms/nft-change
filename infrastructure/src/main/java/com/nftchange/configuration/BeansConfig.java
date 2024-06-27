@@ -84,7 +84,14 @@ public class BeansConfig {
     public NFTValidation nftValidation(NFTGateway nftGateway) {
         return new NFTValidation(nftGateway);
     }
-    @Bean BuyNFTUseCase buyNFTUseCase(NFTValidation nftValidation, UserValidation userValidation, CreateTransactionsGateway createTransactionsGateway) {
+
+    @Bean
+    BuyNFTUseCase buyNFTUseCase(NFTValidation nftValidation, UserValidation userValidation, CreateTransactionsGateway createTransactionsGateway) {
         return new BuyNFTUseCaseImpl(nftValidation, userValidation, createTransactionsGateway);
+    }
+
+    @Bean
+    AddBalanceByUserUseCase addBalanceByUserUseCase(UserValidation userValidation, WalletGateway walletGateway) {
+        return new AddBalanceByUserUseCaseImpl(userValidation, walletGateway);
     }
 }

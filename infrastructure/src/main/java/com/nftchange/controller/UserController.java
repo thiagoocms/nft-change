@@ -4,6 +4,7 @@ package com.nftchange.controller;
 import com.nftchange.constants.AppConstants;
 import com.nftchange.domain.User;
 import com.nftchange.dto.UserActiveDTO;
+import com.nftchange.dto.UserAddBalanceDTO;
 import com.nftchange.dto.UserDTO;
 import com.nftchange.mapper.UserDTOMapper;
 import com.nftchange.user.*;
@@ -25,15 +26,17 @@ public class UserController {
     private final DeleteUserByIdUseCase deleteUserByIdUseCase;
     private final IsActiveUserUseCase isActiveUserUseCase;
     private final ActiveUserUseCase activeUserUseCase;
+    private final AddBalanceByUserUseCase addBalanceByUserUseCase;
 
     @Autowired
-    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase, IsActiveUserUseCase isActiveUserUseCase, ActiveUserUseCase activeUserUseCase) {
+    public UserController(CreateUserUseCase createUserUseCase, UpdateUserByIdUseCase updateUserByIdUseCase, FindUserByIdUseCase findUserByIdUseCase, DeleteUserByIdUseCase deleteUserByIdUseCase, IsActiveUserUseCase isActiveUserUseCase, ActiveUserUseCase activeUserUseCase, AddBalanceByUserUseCase addBalanceByUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserByIdUseCase = updateUserByIdUseCase;
         this.findUserByIdUseCase = findUserByIdUseCase;
         this.deleteUserByIdUseCase = deleteUserByIdUseCase;
         this.isActiveUserUseCase = isActiveUserUseCase;
         this.activeUserUseCase = activeUserUseCase;
+        this.addBalanceByUserUseCase = addBalanceByUserUseCase;
     }
 
     @PostMapping
@@ -90,6 +93,15 @@ public class UserController {
     public ResponseEntity<Void> activeAccount(@RequestBody UserActiveDTO dto) {
 
         activeUserUseCase.active(dto.getLogin(), dto.getPinCode());
+
+        return ResponseEntity
+                .ok().build();
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Void> addBalance(@RequestBody UserAddBalanceDTO dto) {
+
+        addBalanceByUserUseCase.add(dto.getUserId(), dto.getValue());
 
         return ResponseEntity
                 .ok().build();

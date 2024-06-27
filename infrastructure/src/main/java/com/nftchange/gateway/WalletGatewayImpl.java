@@ -7,6 +7,9 @@ import com.nftchange.persistence.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 @Service
 public class WalletGatewayImpl implements WalletGateway{
 
@@ -22,5 +25,10 @@ public class WalletGatewayImpl implements WalletGateway{
         WalletEntity walletEntity = WalletEntityMapper.toEntity(wallet);
         wallet = WalletEntityMapper.toDomain(this.walletRepository.save(walletEntity));
         return wallet;
+    }
+
+    @Override
+    public void updateBalanceById(UUID id, BigDecimal balance) {
+        this.walletRepository.updateBalanceById(id.toString(), balance);
     }
 }

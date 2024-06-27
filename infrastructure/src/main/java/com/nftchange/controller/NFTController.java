@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -25,14 +26,16 @@ public class NFTController {
     private final FindNFTByIdUseCase findNFTByIdUseCase;
     private final DeleteNFTByIdUseCase deleteNFTByIdUseCase;
     private final BuyNFTUseCase buyNFTUseCase;
+    private final FindAllNFTByTitleUseCase findAllNFTByTitleUseCase;
 
     @Autowired
-    public NFTController(CreateNFTUseCase createNFTUseCase, UpdateNFTByIdUseCase updateNFTByIdUseCase, FindNFTByIdUseCase findNFTByIdUseCase, DeleteNFTByIdUseCase deleteNFTByIdUseCase, BuyNFTUseCase buyNFTUseCase) {
+    public NFTController(CreateNFTUseCase createNFTUseCase, UpdateNFTByIdUseCase updateNFTByIdUseCase, FindNFTByIdUseCase findNFTByIdUseCase, DeleteNFTByIdUseCase deleteNFTByIdUseCase, BuyNFTUseCase buyNFTUseCase, FindAllNFTByTitleUseCase findAllNFTByTitleUseCase) {
         this.createNFTUseCase = createNFTUseCase;
         this.updateNFTByIdUseCase = updateNFTByIdUseCase;
         this.findNFTByIdUseCase = findNFTByIdUseCase;
         this.deleteNFTByIdUseCase = deleteNFTByIdUseCase;
         this.buyNFTUseCase = buyNFTUseCase;
+        this.findAllNFTByTitleUseCase = findAllNFTByTitleUseCase;
     }
 
     @PostMapping
@@ -82,5 +85,15 @@ public class NFTController {
         this.buyNFTUseCase.buy(UUID.fromString(dto.getTokenId()), dto.getBuyerId());
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<NFTDTO>> findAll(@RequestParam(name = "title", required = false) String title) {
+
+        List<NFTDTO> nftdto = this.findAllNFTByTitleUseCase.findAll(title).stream().map(NFTDTOMapper::toDto).toList();
+
+        return ResponseEntity
+                .ok()
+                .body(nftdto);
     }
 }

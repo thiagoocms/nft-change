@@ -16,6 +16,10 @@ public class User extends AbstractAuditing {
     public User() {
     }
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     public User(Long id, String name, String email, Wallet wallet, String login, String password, String pinCode, boolean active) {
         this.id = id;
         this.name = name;

@@ -3,7 +3,9 @@ package com.nftchange.gateway;
 import com.nftchange.domain.NFT;
 import com.nftchange.mapper.NFTEntityMapper;
 import com.nftchange.persistence.entity.NFTEntity;
+import com.nftchange.persistence.entity.UserEntity;
 import com.nftchange.persistence.repository.NFTRepository;
+import com.nftchange.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +16,22 @@ import java.util.UUID;
 public class NFTGatewayImpl implements NFTGateway {
 
     private final NFTRepository nftRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public NFTGatewayImpl(NFTRepository nftRepository) {
+    public NFTGatewayImpl(NFTRepository nftRepository, UserRepository userRepository) {
         this.nftRepository = nftRepository;
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public NFT create(NFT nft) {
         NFTEntity nftEntity = NFTEntityMapper.toEntity(nft);
+        if (nft.getUser() != null && nft.getUser().getId() != null) {
+            UserEntity user = this.userRepository.findFirstByIdAndDeletedIsFalse(nft.getUser().getId());
+            nftEntity.setUser(user);
+        }
         nft = NFTEntityMapper.toDomain(this.nftRepository.save(nftEntity));
         return nft;
     }

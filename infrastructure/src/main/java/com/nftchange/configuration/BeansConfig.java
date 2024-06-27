@@ -1,9 +1,6 @@
 package com.nftchange.configuration;
 
-import com.nftchange.gateway.EmailSendGateway;
-import com.nftchange.gateway.NFTGateway;
-import com.nftchange.gateway.UserGateway;
-import com.nftchange.gateway.WalletGateway;
+import com.nftchange.gateway.*;
 import com.nftchange.nft.*;
 import com.nftchange.usecaseimpl.nft.*;
 import com.nftchange.usecaseimpl.user.*;
@@ -86,5 +83,8 @@ public class BeansConfig {
     @Bean
     public NFTValidation nftValidation(NFTGateway nftGateway) {
         return new NFTValidation(nftGateway);
+    }
+    @Bean BuyNFTUseCase buyNFTUseCase(NFTValidation nftValidation, UserValidation userValidation, CreateTransactionsGateway createTransactionsGateway) {
+        return new BuyNFTUseCaseImpl(nftValidation, userValidation, createTransactionsGateway);
     }
 }

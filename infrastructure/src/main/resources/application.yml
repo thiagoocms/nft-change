@@ -19,6 +19,8 @@ spring:
   main:
     allow-bean-definition-overriding: true
   cloud:
+    compatibility-verifier:
+      enabled: false
     config:
       enabled: false
   output:

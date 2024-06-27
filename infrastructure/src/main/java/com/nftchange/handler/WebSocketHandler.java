@@ -18,11 +18,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private final Map<String, String> sessionChannels = new ConcurrentHashMap<>();
     private final Map<String, Channel> channels = new ConcurrentHashMap<>();
-    private final static String TRANSACTIONS = "transactions";
     private final static String NFT_RELOAD = "nft-reload";
 
     public WebSocketHandler() {
-        channels.put(TRANSACTIONS,new Channel(TRANSACTIONS));
         channels.put(NFT_RELOAD,new Channel(NFT_RELOAD));
     }
 

@@ -2,12 +2,10 @@ package com.nftchange.controller;
 
 import com.nftchange.constants.AppConstants;
 import com.nftchange.domain.NFT;
+import com.nftchange.dto.BuyNFTDTO;
 import com.nftchange.dto.NFTDTO;
 import com.nftchange.mapper.NFTDTOMapper;
-import com.nftchange.nft.CreateNFTUseCase;
-import com.nftchange.nft.DeleteNFTByIdUseCase;
-import com.nftchange.nft.FindNFTByIdUseCase;
-import com.nftchange.nft.UpdateNFTByIdUseCase;
+import com.nftchange.nft.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(value = AppConstants.PATH + AppConstants.API + AppConstants.V1 + "/nfts")
@@ -25,13 +24,15 @@ public class NFTController {
     private final UpdateNFTByIdUseCase updateNFTByIdUseCase;
     private final FindNFTByIdUseCase findNFTByIdUseCase;
     private final DeleteNFTByIdUseCase deleteNFTByIdUseCase;
+    private final BuyNFTUseCase buyNFTUseCase;
 
     @Autowired
-    public NFTController(CreateNFTUseCase createNFTUseCase, UpdateNFTByIdUseCase updateNFTByIdUseCase, FindNFTByIdUseCase findNFTByIdUseCase, DeleteNFTByIdUseCase deleteNFTByIdUseCase) {
+    public NFTController(CreateNFTUseCase createNFTUseCase, UpdateNFTByIdUseCase updateNFTByIdUseCase, FindNFTByIdUseCase findNFTByIdUseCase, DeleteNFTByIdUseCase deleteNFTByIdUseCase, BuyNFTUseCase buyNFTUseCase) {
         this.createNFTUseCase = createNFTUseCase;
         this.updateNFTByIdUseCase = updateNFTByIdUseCase;
         this.findNFTByIdUseCase = findNFTByIdUseCase;
         this.deleteNFTByIdUseCase = deleteNFTByIdUseCase;
+        this.buyNFTUseCase = buyNFTUseCase;
     }
 
     @PostMapping
@@ -70,7 +71,15 @@ public class NFTController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
 
-        deleteNFTByIdUseCase.deleteById(UUID.fromString(id));
+        this.deleteNFTByIdUseCase.deleteById(UUID.fromString(id));
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/buy")
+    public ResponseEntity<Void> buy(@RequestBody BuyNFTDTO dto) throws ExecutionException, InterruptedException {
+
+        this.buyNFTUseCase.buy(UUID.fromString(dto.getTokenId()), dto.getBuyerId());
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

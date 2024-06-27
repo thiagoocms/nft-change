@@ -27,7 +27,7 @@ public class NFTEntity extends AbstractAuditingEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)
     private UserEntity user;
 

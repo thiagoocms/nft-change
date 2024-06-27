@@ -1,11 +1,15 @@
 package com.nftchange.configuration;
 
 import com.nftchange.gateway.EmailSendGateway;
+import com.nftchange.gateway.NFTGateway;
 import com.nftchange.gateway.UserGateway;
 import com.nftchange.gateway.WalletGateway;
+import com.nftchange.nft.*;
+import com.nftchange.usecaseimpl.nft.*;
 import com.nftchange.usecaseimpl.user.*;
 import com.nftchange.usecaseimpl.wallet.CreateWalletUseCaseImpl;
 import com.nftchange.user.*;
+import com.nftchange.validation.NFTValidation;
 import com.nftchange.validation.UserValidation;
 import com.nftchange.wallet.CreateWalletUseCase;
 import org.springframework.context.annotation.Bean;
@@ -52,5 +56,35 @@ public class BeansConfig {
     @Bean
     public ActiveUserUseCase activeUserUseCase(UserGateway userGateway) {
         return new ActiveUserUseCaseImpl(userGateway);
+    }
+
+    @Bean
+    public CreateNFTUseCase createNFTUseCase(NFTGateway nftGateway, NFTValidation nftValidation) {
+        return new CreateNFTUseCaseImpl(nftGateway, nftValidation);
+    }
+
+    @Bean
+    public UpdateNFTByIdUseCase updateNFTByIdUseCase(NFTGateway nftGateway, NFTValidation nftValidation) {
+        return new UpdateNFTByIdUseCaseImpl(nftGateway, nftValidation);
+    }
+
+    @Bean
+    public FindNFTByIdUseCase findNFTByIdUseCase(NFTValidation nftValidation) {
+        return new FindNFTByIdUseCaseImpl(nftValidation);
+    }
+
+    @Bean
+    public DeleteNFTByIdUseCase deleteNFTByIdUseCase(NFTGateway nftGateway, NFTValidation nftValidation) {
+        return new DeleteNFTByIdUseCaseImpl(nftGateway, nftValidation);
+    }
+
+    @Bean
+    public FindAllNFTByTitleUseCase findAllNFTByTitleUseCase(NFTGateway nftGateway) {
+        return new FindAllNFTByTitleUseCaseImpl(nftGateway);
+    }
+
+    @Bean
+    public NFTValidation nftValidation(NFTGateway nftGateway) {
+        return new NFTValidation(nftGateway);
     }
 }

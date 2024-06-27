@@ -83,6 +83,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             for (String sessionId : channel.getSessions()) {
                 WebSocketSession targetSession = sessions.get(sessionId);
                 if (targetSession != null && targetSession.isOpen()) {
+                    log.info("Received: {} on channel: {}", payload, channel);;
                     targetSession.sendMessage(new TextMessage(payload));
                 }
             }

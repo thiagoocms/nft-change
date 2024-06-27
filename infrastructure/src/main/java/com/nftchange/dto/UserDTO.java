@@ -6,16 +6,18 @@ public class UserDTO {
     private String email;
     private WalletDTO wallet;
     private String login;
+    private String password;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String email, WalletDTO wallet, String login) {
+    public UserDTO(Long id, String name, String email, WalletDTO wallet, String login, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.wallet = wallet;
         this.login = login;
+        this.password = password;
     }
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class UserDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

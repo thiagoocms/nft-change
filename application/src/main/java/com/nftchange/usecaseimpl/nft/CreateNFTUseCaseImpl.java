@@ -18,6 +18,7 @@ public class CreateNFTUseCaseImpl implements CreateNFTUseCase {
     @Override
     public NFT create(NFT nft) {
         this.nftValidation.checkOwnerFieldsToCreate(nft);
+        this.nftValidation.checkType(nft);
         return this.nftGateway.create(nft);
     }
 }

@@ -1,5 +1,7 @@
 package com.nftchange.persistence.entity;
 
+import com.nftchange.domain.User;
+import com.nftchange.enums.NFTTypeEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -25,22 +27,29 @@ public class NFTEntity extends AbstractAuditingEntity {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = true)
+    private UserEntity user;
+
+    @Column(name = "\"limit\"", nullable = true)
+    private Integer limit;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "\"type\"", nullable = false)
+    private NFTTypeEnum type;
+
     public NFTEntity() {
     }
 
-    public NFTEntity(String tokenId, String title, String describe, String imageUrl, BigDecimal price) {
+    public NFTEntity(String tokenId, String title, String describe, String imageUrl, BigDecimal price, UserEntity user, Integer limit, NFTTypeEnum type) {
         this.tokenId = tokenId;
         this.title = title;
         this.describe = describe;
         this.imageUrl = imageUrl;
         this.price = price;
-    }
-
-    public void from(NFTEntity nft) {
-        this.title = nft.getTitle() != null ? nft.getTitle() : this.title;
-        this.describe = nft.getDescribe() != null ? nft.getDescribe() : this.describe;
-        this.imageUrl = nft.getImageUrl() != null ? nft.getImageUrl() : this.imageUrl;
-        this.price = nft.getPrice() != null ? nft.getPrice() : this.price;
+        this.user = user;
+        this.limit = limit;
+        this.type = type;
     }
 
     public String getTokenId() {
@@ -81,5 +90,29 @@ public class NFTEntity extends AbstractAuditingEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public NFTTypeEnum getType() {
+        return type;
+    }
+
+    public void setType(NFTTypeEnum type) {
+        this.type = type;
     }
 }

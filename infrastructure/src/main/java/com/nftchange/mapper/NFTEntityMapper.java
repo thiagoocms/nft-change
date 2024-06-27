@@ -18,6 +18,9 @@ public class NFTEntityMapper {
         nft.setDescribe(nftEntity.getDescribe());
         nft.setImageUrl(nftEntity.getImageUrl());
         nft.setPrice(nftEntity.getPrice());
+        nft.setUser(UserEntityMapper.toDomain(nftEntity.getUser()));
+        nft.setLimit(nftEntity.getLimit());
+        nft.setType(nftEntity.getType());
         nft.setCreatedBy(nftEntity.getCreatedBy());
         nft.setCreatedDate(nftEntity.getCreatedDate());
         nft.setLastModifiedBy(nftEntity.getLastModifiedBy());
@@ -36,6 +39,9 @@ public class NFTEntityMapper {
         nftEntity.setDescribe(nft.getDescribe());
         nftEntity.setImageUrl(nft.getImageUrl());
         nftEntity.setPrice(nft.getPrice());
+        nftEntity.setUser(UserEntityMapper.toEntity(nft.getUser()));
+        nftEntity.setLimit(nft.getLimit());
+        nftEntity.setType(nft.getType());
         nftEntity.setCreatedBy(nft.getCreatedBy());
         nftEntity.setCreatedDate(nft.getCreatedDate());
         nftEntity.setLastModifiedBy(nft.getLastModifiedBy());

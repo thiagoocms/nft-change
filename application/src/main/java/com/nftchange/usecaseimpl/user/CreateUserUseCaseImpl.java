@@ -14,13 +14,12 @@ import java.util.Random;
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserGateway userGateway;
-    private final CreateWalletUseCase createWalletUseCase;
+
     private final UserValidation userValidation;
     private final EmailSendGateway emailSendGateway;
 
-    public CreateUserUseCaseImpl(UserGateway userGateway, CreateWalletUseCase createWalletUseCase, UserValidation userValidation, EmailSendGateway emailSendGateway) {
+    public CreateUserUseCaseImpl(UserGateway userGateway, UserValidation userValidation, EmailSendGateway emailSendGateway) {
         this.userGateway = userGateway;
-        this.createWalletUseCase = createWalletUseCase;
         this.userValidation = userValidation;
         this.emailSendGateway = emailSendGateway;
     }
@@ -32,6 +31,8 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         this.userValidation.checkExistByLogin(user);
         user.setWallet(new Wallet(null, BigDecimal.ZERO));
         this.generatePinCode(user);
+        user = this.userGateway.create(user);
+        this.sendEmail(user);
         return this.userGateway.create(user);
     }
 
@@ -39,12 +40,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         Random random = new Random();
         int pin = 1000 + random.nextInt(9000);
         user.setPinCode(String.valueOf(pin));
-        String subject = "Seja muito bem-vindo!";
-        String msg = "Ola " + user.getName() + ", seja bem vindo ao NFT change! Aqui estar o codigo de ativação da sua conta: " + pin;
-        sendEmail(user.getEmail(), subject, msg);
     }
 
-    private void sendEmail(String to, String subject, String message) {
-        emailSendGateway.sendEmailText(to, subject, message);
+    private void sendEmail(User user) {
+        String subject = "Seja muito bem-vindo!";
+        String msg = "Ola " + user.getName() + ", seja bem vindo ao NFT change! Aqui estar o codigo de ativação da sua conta: " + user.getPinCode();
+        emailSendGateway.sendEmailText(user.getEmail(), subject, msg);
     }
 }

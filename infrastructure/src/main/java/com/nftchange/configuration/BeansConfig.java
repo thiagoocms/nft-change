@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeansConfig {
 
     @Bean
-    public CreateUserUseCase createUserUseCase(UserGateway userGateway, CreateWalletUseCase createWalletUseCase, UserValidation userValidation, EmailSendGateway emailSendGateway) {
-        return new CreateUserUseCaseImpl(userGateway, createWalletUseCase, userValidation, emailSendGateway);
+    public CreateUserUseCase createUserUseCase(UserGateway userGateway, UserValidation userValidation, EmailSendGateway emailSendGateway) {
+        return new CreateUserUseCaseImpl(userGateway, userValidation, emailSendGateway);
     }
 
     @Bean

@@ -2,6 +2,7 @@ package com.nftchange.validation;
 
 
 import com.nftchange.domain.NFT;
+import com.nftchange.enums.NFTTypeEnum;
 import com.nftchange.exception.BadRequestException;
 import com.nftchange.exception.ResourceNotFoundException;
 import com.nftchange.gateway.NFTGateway;
@@ -45,5 +46,11 @@ public class NFTValidation {
         }
 
         return nft;
+    }
+
+    public void checkType(NFT nft) {
+        if (nft.getType().equals(NFTTypeEnum.SINGLE) && nft.getUser() == null) {
+            throw new BadRequestException("Usuario é obrigatorio.");
+        }
     }
 }
